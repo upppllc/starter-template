@@ -1,6 +1,6 @@
 {
-  "name": "Uppp",
-  "short_name": "Uppp",
+  "name": "__APP_NAME__",
+  "short_name": "__APP_NAME__",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
