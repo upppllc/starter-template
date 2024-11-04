@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 60">
+  <style>
+    .letter {
+      fill: #080710;
+      font-weight: 700;
+    }
+    @media (prefers-color-scheme: dark) {
+      .letter {
+        fill: #e8e7f0;
+      }
+    }
+  </style>
+  <text x="0" y="58" font-size="80" font-family="Arial" class="letter">U</text>
+  <text x="55" y="51" font-size="70" font-family="Arial" class="letter">P</text>
+  <text x="101" y="45" font-size="60" font-family="Arial" class="letter">P</text>
+  <text x="140" y="38" font-size="50" font-family="Arial" class="letter">P</text>
+</svg>
