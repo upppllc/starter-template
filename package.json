@@ -1,20 +1,20 @@
 {
-	"name": "starter-template",
-	"version": "0.0.1",
-	"type": "module",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build",
-		"preview": "vite preview"
-	},
-	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.3.1",
-		"@sveltejs/kit": "^2.7.4",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"svelte": "^5.1.9",
-		"vite": "^5.4.10"
-	},
-	"dependencies": {
-		"@upppllc/sveltekit-ui": "^0.0.1"
-	}
+  "name": "starter-template",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "^2.7.5",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "svelte": "^5.1.9",
+    "vite": "^5.4.10"
+  },
+  "dependencies": {
+    "@sveltejs/adapter-vercel": "^5.4.6",
+    "@upppllc/sveltekit-ui": "^0.0.2"
+  }
 }
