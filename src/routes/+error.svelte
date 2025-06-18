@@ -1,13 +1,13 @@
 <script>
   import { Button, create_button_manager } from "@upppllc/sveltekit-ui"
   import { goto } from "$app/navigation"
-  import { page } from "$app/stores"
+  import { page } from "$app/state"
 
-  let is_loading = false
+  let is_loading = $state(false)
   function try_again() {
     is_loading = true
     setTimeout(() => {
-      goto($page.url)
+      goto(page.url)
       is_loading = false
     }, 1000)
   }
@@ -20,7 +20,7 @@
     ml: 1.5,
     mr: 1.5,
     mt: 3,
-    is_loading: is_loading,
+    is_loading: () => is_loading,
     text: "Try Again",
     on_click: () => try_again(),
   })
@@ -45,9 +45,9 @@
 <div class="container">
   <img src="/something-went-wrong.webp" width="250px" height="auto" alt="Something went wrong" />
   <h2>Something went wrong</h2>
-  {#if $page?.error?.message}
+  {#if page?.error?.message}
     <p style="text-align: left; font-size: 2rem; color: var(--g7-t);">
-      {$page?.error?.message}
+      {page?.error?.message}
     </p>
   {/if}
   <div style="max-width: 30rem; margin: 0 auto;">

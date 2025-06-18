@@ -1,6 +1,7 @@
 <script>
   import { Button, create_button_manager } from "@upppllc/sveltekit-ui"
   import { goto } from "$app/navigation"
+  import { page } from "$app/state"
   import { global_manager } from "$lib/client/index.svelte.js"
 
   const nav_options = [
@@ -20,6 +21,12 @@
         icon_pos: "left",
         support_icon: h?.support_icon,
         text: h?.name,
+        selected_type: () => {
+          const current_path = page?.route?.id || "/"
+          const first_segment = current_path.split("/")[1] || ""
+          const nav_segment = h.route.split("/")[1] || ""
+          return first_segment === nav_segment ? "half_selected" : null
+        },
         on_click: () => {
           global_manager.layout_manager?.set_is_full_nav_toggled_on(false)
           goto(h?.route)

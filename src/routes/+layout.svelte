@@ -76,7 +76,7 @@
     background-color: var(--bg);
   }
   :root {
-    --primary-c: var(--c5);
+    --primary-c: var(--c10);
     --primary-h: var(--h18);
   }
 </style>
