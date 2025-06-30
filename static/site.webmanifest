@@ -1,6 +1,6 @@
 {
-  "name": "__APP_NAME__",
-  "short_name": "__APP_NAME__",
+  "name": "Sveltekit-UI",
+  "short_name": "Sveltekit-UI",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -15,7 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#0c091d",
-  "background_color": "#0c091d",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "display": "standalone"
 }

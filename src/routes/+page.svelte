@@ -18,9 +18,9 @@
   <h3>Create project on your computer from template</h3>
   <p>
     Macbook is my machine choice. Open the terminal. cd into a folder on your computer that you want to keep the
-    project. Run the command (but replace "my-app" with the name of your project):
+    project. Run the command (but replace "my-project" with the name of your project):
   </p>
-  <p>npx create-upppllc-site my-app</p>
+  <p>npx create-sveltekit-ui-site my-project</p>
   <p>run <code>code .</code> to open your editor. (I use vs code)</p>
   <p><code>npm i</code></p>
   <p><code>npm run dev</code></p>

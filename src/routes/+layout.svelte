@@ -1,6 +1,6 @@
 <script>
-  import "@upppllc/sveltekit-ui/style.css"
-  import { Layout, Checkbox, Button } from "@upppllc/sveltekit-ui"
+  import "sveltekit-ui/style.css"
+  import { Layout, Checkbox, Button } from "sveltekit-ui"
   import { global_manager } from "$lib/client/index.svelte.js"
   import { goto } from "$app/navigation"
   import Logo from "$lib/components/Logo/index.svelte"

@@ -1,4 +1,4 @@
-import { create_layout_manager } from "@upppllc/sveltekit-ui"
+import { create_layout_manager } from "sveltekit-ui"
 
 export function create_global_manager(config) {
   let layout_manager = $state(null)

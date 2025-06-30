@@ -1,5 +1,5 @@
 <script>
-  import { Button, create_button_manager } from "@upppllc/sveltekit-ui"
+  import { Button, create_button_manager } from "sveltekit-ui"
   import { goto } from "$app/navigation"
   import { page } from "$app/state"
   import { global_manager } from "$lib/client/index.svelte.js"
