@@ -1,10 +1,11 @@
 <script>
   import "sveltekit-ui/style.css"
-  import { Layout, Checkbox, Button } from "sveltekit-ui"
+  import { Layout, Checkbox, Button, XFollow } from "sveltekit-ui"
   import { global_manager } from "$lib/client/index.svelte.js"
   import { goto } from "$app/navigation"
   import Logo from "$lib/components/Logo/index.svelte"
   import MainNav from "$lib/components/MainNav/index.svelte"
+  import NewsletterSubscribe from "$lib/components/NewsletterSubscribe/index.svelte"
 
   let { data, children } = $props()
 </script>
@@ -37,6 +38,33 @@
     {#if children}
       {@render children()}
     {/if}
+    <div style="display: flex; justify-content: center; padding: 1rem; margin: 2rem auto 2rem auto; max-width: 60rem;">
+      <NewsletterSubscribe manager={global_manager?.newsletter_subscribe_manager} />
+    </div>
+    <div style="display: flex; justify-content: center; padding: 1rem; margin-bottom: 2rem; margin-top: 2rem;">
+      <XFollow x_handle="contibase" />
+    </div>
+    <div style="display: flex; justify-content: start; padding: 1rem; margin-top: 2rem;">
+      <a
+        href="https://www.contibase.com?ref=skst"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="display: flex; align-items: center; justify-content: center; padding: .5rem 2rem; width: fit-content; background-color: var(--g0-t); border-radius: 10px; font-family: Quicksand; text-decoration: none;"
+      >
+        <img
+          height="12px"
+          width="auto"
+          style="max-height: 12px; max-width: 40px; width: auto; margin-right: 10px;"
+          src="https://www.contibase.com/favicon.svg"
+          alt="icon"
+        />
+        <div style="display: flex; flex-direction: column; flex: 0;">
+          <span style="font-size: 1rem; line-height: 1; color: var(--g16-t)">Powered by </span><span
+            style="line-height: 1; color: oklch(var(--l12-t) var(--c12) var(--h10));">Contibase</span
+          >
+        </div>
+      </a>
+    </div>
   {/snippet}
   {#snippet additional()}
     <!-- <AuthPopover manager={global_manager?.auth_manager} /> -->

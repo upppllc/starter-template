@@ -11,6 +11,12 @@
       route: "/",
       support_icon: "house",
     },
+    {
+      id: "test",
+      name: "Test",
+      route: "/test",
+      support_icon: null,
+    },
   ]
 
   let nav_button_managers = $state(
