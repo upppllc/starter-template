@@ -6,7 +6,7 @@ export default {
       runtime: "nodejs22.x",
       trailingSlash: false,
       cleanUrls: true,
-      maxDuration: 60,
+      maxDuration: 300,
     }),
   },
 }
