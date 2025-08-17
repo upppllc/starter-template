@@ -1,5 +1,5 @@
 import { create_layout_manager } from "sveltekit-ui"
-import { create_newsletter_subscribe_manager } from "$lib/components/NewsletterSubscribe/index.svelte.js"
+import { create_newsletter_subscribe_manager } from "$lib/components/Newsletter/index.svelte.js"
 
 export function create_global_manager(config) {
   let layout_manager = $state(null)

@@ -15,7 +15,7 @@
       style="fill-rule:nonzero; fill: var(--primary-t);"
     ></path>
   </svg>
-  <h1 class="logo_text">__APP_NAME__</h1>
+  <span class="logo_text">__APP_NAME__</span>
 </div>
 
 <style>

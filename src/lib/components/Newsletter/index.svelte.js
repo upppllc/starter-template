@@ -7,6 +7,7 @@ export function create_newsletter_subscribe_manager(config) {
   let subscribe_button_manager = $state(null)
   let subcribe_is_loading = $state(false)
   let subscribe_error_message = $state(null)
+  let is_subscribe_success_message = $state(false)
 
   async function subscribe_email() {
     console.log("subscribe_email")
@@ -26,10 +27,10 @@ export function create_newsletter_subscribe_manager(config) {
       }),
     })
     console.log("create_account_user_res", create_account_user_res)
-    const create_account_user_res_body = await create_account_user_res.json()
-    console.log("create_account_user_res_body", create_account_user_res_body)
+    const create_account_user_resbody = await create_account_user_res.json()
+    console.log("create_account_user_resbody", create_account_user_resbody)
     if (!create_account_user_res.ok) {
-      subscribe_error_message = create_account_user_res_body?.message ?? JSON.stringify(create_account_user_res_body)
+      subscribe_error_message = create_account_user_resbody?.message ?? JSON.stringify(create_account_user_resbody)
       subcribe_is_loading = false
       return
     }
@@ -37,8 +38,11 @@ export function create_newsletter_subscribe_manager(config) {
     email_address_text_input_manager.set_val(null)
     subscribe_button_manager.success_trigger()
     subcribe_is_loading = false
-    // subscribe_success_message = `${create_account_user_res_body?.email} has subscribed to the shark_tank_update Newsletter!`
-    return create_account_user_res_body
+    is_subscribe_success_message = true
+    setTimeout(() => {
+      is_subscribe_success_message = false
+    }, 5000)
+    return create_account_user_resbody
   }
 
   function init(config) {
@@ -83,6 +87,9 @@ export function create_newsletter_subscribe_manager(config) {
     },
     get subscribe_error_message() {
       return subscribe_error_message
+    },
+    get is_subscribe_success_message() {
+      return is_subscribe_success_message
     },
   }
 }

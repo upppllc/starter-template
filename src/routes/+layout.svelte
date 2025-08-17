@@ -1,11 +1,12 @@
 <script>
   import "sveltekit-ui/style.css"
+  import Logo from "$lib/components/Logo/index.svelte"
+  import MainNav from "$lib/components/MainNav/index.svelte"
+  import NewsletterSubscribe from "$lib/components/Newsletter/Section/index.svelte"
   import { Layout, Checkbox, Button, XFollow } from "sveltekit-ui"
   import { global_manager } from "$lib/client/index.svelte.js"
   import { goto } from "$app/navigation"
-  import Logo from "$lib/components/Logo/index.svelte"
-  import MainNav from "$lib/components/MainNav/index.svelte"
-  import NewsletterSubscribe from "$lib/components/NewsletterSubscribe/index.svelte"
+  import { page } from "$app/state"
 
   let { data, children } = $props()
 </script>
@@ -38,9 +39,13 @@
     {#if children}
       {@render children()}
     {/if}
-    <div style="display: flex; justify-content: center; padding: 1rem; margin: 2rem auto 2rem auto; max-width: 60rem;">
-      <NewsletterSubscribe manager={global_manager?.newsletter_subscribe_manager} />
-    </div>
+    {#if !page?.route?.id?.startsWith("/confirm_user_email_address")}
+      <div
+        style="display: flex; justify-content: center; padding: 1rem; margin: 2rem auto 2rem auto; max-width: 60rem;"
+      >
+        <NewsletterSubscribe manager={global_manager?.newsletter_subscribe_manager} />
+      </div>
+    {/if}
     <div style="display: flex; justify-content: center; padding: 1rem; margin-bottom: 2rem; margin-top: 2rem;">
       <XFollow x_handle="contibase" />
     </div>
