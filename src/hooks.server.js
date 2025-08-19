@@ -1,5 +1,5 @@
 // import { error, json } from "@sveltejs/kit"
-// import { CONTIBASE_API_KEY, CONTIBASE_USER_TABLE_ID } from "$env/static/private"
+// import { CONTIBASE_API_KEY, CONTIBASE_USERS_TABLE_ID } from "$env/static/private"
 
 export async function handle({ event, resolve }) {
   // let access_token = event.cookies.get("cb_access_token")
@@ -9,7 +9,7 @@ export async function handle({ event, resolve }) {
   //   }
   //   const filters = JSON.stringify(filters_obj)
   //   const get_user_row_res = await fetch(
-  //     `https://www.contibase.com/api/v1/tables/${CONTIBASE_USER_TABLE_ID}?filters=${encodeURIComponent(filters)}`,
+  //     `https://www.contibase.com/api/v1/tables/${CONTIBASE_USERS_TABLE_ID}?filters=${encodeURIComponent(filters)}`,
   //     {
   //       method: "GET",
   //       headers: {

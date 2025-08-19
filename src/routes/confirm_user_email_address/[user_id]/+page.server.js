@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit"
-import { CONTIBASE_ACCESS_TOKEN } from "$env/static/private"
+import { CONTIBASE_ACCESS_TOKEN, CONTIBASE_USERS_TABLE_ID } from "$env/static/private"
 
 export async function load({ fetch, params }) {
   console.log("update_user_confirm_email_address_epoch")
@@ -7,22 +7,23 @@ export async function load({ fetch, params }) {
   if (!user_id) {
     error(400, "missing user_id")
   }
-  const user_table_id = "your user table id from contibase"
-  const account_id = "account id from contibase"
   const now_epoch_seconds = Math.floor(Date.now() / 1000)
-  const confirm_res = await fetch(`https://www.contibase.com/api/v1/tables/${user_table_id}/rows/${user_id}`, {
-    method: "PUT",
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      authorization: `Bearer ${CONTIBASE_ACCESS_TOKEN}`,
-    },
-    body: JSON.stringify({
-      row_data: {
-        epoch_email_address_confirmed: now_epoch_seconds,
+  const confirm_res = await fetch(
+    `https://www.contibase.com/api/v1/tables/${CONTIBASE_USERS_TABLE_ID}/rows/${user_id}`,
+    {
+      method: "PUT",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        authorization: `Bearer ${CONTIBASE_ACCESS_TOKEN}`,
       },
-    }),
-  })
+      body: JSON.stringify({
+        row_data: {
+          epoch_email_address_confirmed: now_epoch_seconds,
+        },
+      }),
+    }
+  )
   const confirm_res_body = await confirm_res.json().catch(() => null)
   console.log("confirm_res_body", confirm_res_body)
   if (!confirm_res.ok) {
@@ -31,7 +32,7 @@ export async function load({ fetch, params }) {
   }
   // optionally send an a welcome email after a user confirms email or do some other action
   // if (confirm_res_body?.row?.email_address && confirm_res_body?.row?.epoch_email_address_confirmed) {
-  //   const send_welcome_email_res = await fetch(`https://www.contibase.com/api/v1/accounts/${account_id}/mail/single`, {
+  //   const send_welcome_email_res = await fetch(`https://www.contibase.com/api/v1/accounts/${CONTIBASE_ACCOUNT_ID}/mail/single`, {
   //     method: "POST",
   //     headers: {
   //       accept: "application/json",
