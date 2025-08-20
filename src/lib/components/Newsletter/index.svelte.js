@@ -19,7 +19,7 @@ export function create_newsletter_subscribe_manager(config) {
       subcribe_is_loading = false
       return
     }
-    const create_account_user_res = await fetch("/api/v1/users", {
+    const create_account_user_res = await fetch("/api/users", {
       method: "POST",
       body: JSON.stringify({
         first_name: first_name_text_input_manager?.val,
