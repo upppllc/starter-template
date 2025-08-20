@@ -28,7 +28,7 @@ export async function POST({ request, fetch }) {
     }
   )
   const check_if_email_address_already_used_res_body = await check_if_email_address_already_used_res.json()
-  if (!check_res.ok) {
+  if (!check_if_email_address_already_used_res.ok) {
     return error(
       400,
       check_if_email_address_already_used_res_body?.message || "error checking for existing email_address"
