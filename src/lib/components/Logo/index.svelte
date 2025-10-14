@@ -22,7 +22,7 @@
       />
     </svg>
   </div>
-  <span class="logo_text">Sveltekit-UI</span>
+  <span class="logo_text">__APP_NAME__</span>
 </div>
 
 <style>
