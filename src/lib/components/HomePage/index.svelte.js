@@ -215,6 +215,9 @@ export function create_home_page_manager(config) {
 
     example_manager = create_example_manager({
       count: 2,
+      on_passed_limit: () => {
+        console.log("passed lim!")
+      },
     })
 
     example_reset_button_manager = create_button_manager({
