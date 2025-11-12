@@ -40,6 +40,7 @@ export async function POST({ request, fetch }) {
   ) {
     return error(400, "email_address already exists")
   }
+  const now_epoch_seconds = Math.floor(Date.now() / 1000)
   const create_user_res = await fetch(`https://www.contibase.com/api/v1/tables/${CONTIBASE_USERS_TABLE_ID}/rows`, {
     method: "POST",
     headers: {
@@ -51,6 +52,7 @@ export async function POST({ request, fetch }) {
       row_data: {
         first_name: first_name,
         email_address: email_address,
+        epoch_subscribed: now_epoch_seconds,
         tags: ["all"],
       },
     }),

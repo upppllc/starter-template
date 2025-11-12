@@ -8,7 +8,10 @@
   <div class="container">
     {#if manager?.is_subscribe_success_message}
       <p>Thanks for subscribing!</p>
-      <p>Check your inbox for a confirmation email!</p>
+      <p>
+        Check your inbox for a welcome email (junk mail if you don't see it). Reply to the email to help future
+        deliverability!
+      </p>
     {:else}
       <h3 style="color: var(--primary-t);">Join the Newsletter</h3>
       <p>Stay up to date on the latest news and updates occuring in the __APP_NAME__ world.</p>
