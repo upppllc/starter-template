@@ -1,6 +1,6 @@
 {
-  "name": "Sveltekit-UI",
-  "short_name": "Sveltekit-UI",
+  "name": "__APP_NAME__",
+  "short_name": "__APP_NAME__",
   "icons": [
     {
       "src": "android-chrome-192x192.png",

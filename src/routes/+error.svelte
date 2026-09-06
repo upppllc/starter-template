@@ -5,11 +5,9 @@
 
   let is_loading = $state(false)
   function try_again() {
+    if (is_loading) return
     is_loading = true
-    setTimeout(() => {
-      goto(page.url)
-      is_loading = false
-    }, 1000)
+    window.location.reload()
   }
 
   let refresh_button_manager = create_button_manager({
@@ -39,7 +37,7 @@
 
 <svelte:head>
   <title>__APP_NAME__ - Error</title>
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="robots" content="noindex, follow" />
 </svelte:head>
 
 <div class="container">

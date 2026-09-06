@@ -3,12 +3,12 @@
   import Logo from "$lib/components/Logo/index.svelte"
   import MainNav from "$lib/components/MainNav/index.svelte"
   import NewsletterSubscribe from "$lib/components/Newsletter/Section/index.svelte"
-  import { Layout, Checkbox, Button, XFollow } from "sveltekit-ui"
-  import { global_manager } from "$lib/client/index.svelte.js"
-  import { goto } from "$app/navigation"
+  import { Layout, Checkbox, XFollow } from "sveltekit-ui"
+  import { create_global_manager, set_global_manager } from "$lib/client/index.svelte.js"
   import { page } from "$app/state"
 
-  let { data, children } = $props()
+  let { children } = $props()
+  const global_manager = set_global_manager(create_global_manager())
 </script>
 
 <Layout manager={global_manager?.layout_manager}>
@@ -16,7 +16,7 @@
     <Logo />
   {/snippet}
   {#snippet nav_bar_extra()}
-    <div style="display: flex; align-iems: center;">
+    <div style="display: flex; align-items: center;">
       <!-- <TextInput placeholder="Search" /> -->
       <div style="display: flex; gap: 1rem;">
         <!-- <Button manager={global_manager?.chat_assistant_manager?.popover_button_manager} /> -->

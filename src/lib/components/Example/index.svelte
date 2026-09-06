@@ -1,5 +1,5 @@
 <script>
-  import { Button, Checkbox } from "sveltekit-ui"
+  import { Button } from "sveltekit-ui"
 
   let { manager, extra_stuff } = $props()
 </script>

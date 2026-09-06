@@ -2,7 +2,9 @@
   import { Button, create_button_manager } from "sveltekit-ui"
   import { goto } from "$app/navigation"
   import { page } from "$app/state"
-  import { global_manager } from "$lib/client/index.svelte.js"
+  import { get_global_manager } from "$lib/client/index.svelte.js"
+
+  const global_manager = get_global_manager()
 
   const nav_options = [
     {

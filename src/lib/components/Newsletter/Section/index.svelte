@@ -14,7 +14,7 @@
       </p>
     {:else}
       <h3 style="color: var(--primary-t);">Join the Newsletter</h3>
-      <p>Stay up to date on the latest news and updates occuring in the __APP_NAME__ world.</p>
+      <p>Stay up to date on the latest news and updates occurring in the __APP_NAME__ world.</p>
       <InfoBox message={manager?.subscribe_error_message} mx={0.5} my={0.3} mt={1} />
       <TextInput manager={manager?.first_name_text_input_manager} />
       <TextInput manager={manager?.email_address_text_input_manager} />

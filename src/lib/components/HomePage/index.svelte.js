@@ -1,12 +1,12 @@
 import { create_content_manager, create_button_manager } from "sveltekit-ui"
 import { create_example_manager } from "$lib/components/Example/index.svelte.js"
 
-export function create_home_page_manager(config) {
+export function create_home_page_manager() {
   let content_manager = $state(null)
   let example_manager = $state(null)
   let example_reset_button_manager = $state(null)
 
-  function init(input) {
+  function init() {
     content_manager = create_content_manager({
       val: {
         type_id: "div",
@@ -72,7 +72,7 @@ export function create_home_page_manager(config) {
                     children: [],
                     attributes: {
                       content:
-                        " to generate a logo and the relavant assets to add to your project. Also check out the guide at ",
+                        " to generate a logo and the relevant assets to add to your project. Also check out the guide at ",
                       text_color: null,
                     },
                     selector_id: "skgzavek",
@@ -215,15 +215,13 @@ export function create_home_page_manager(config) {
 
     example_manager = create_example_manager({
       count: 2,
-      on_passed_limit: () => {
-        console.log("passed lim!")
-      },
     })
 
     example_reset_button_manager = create_button_manager({
       type: "outlined",
       is_uniform: true,
       support_icon: "refresh",
+      aria_label: "Reset count",
       on_click: () => example_manager.reset_count(),
     })
   }

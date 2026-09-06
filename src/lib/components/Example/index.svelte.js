@@ -1,11 +1,12 @@
 import { create_button_manager } from "sveltekit-ui"
-import { global_manager } from "$lib/client/index.svelte.js"
+import { get_global_manager } from "$lib/client/index.svelte.js"
 
 export function create_example_manager(config) {
+  const global_manager = get_global_manager()
   let count = $state(0)
   let inc_count_button_manager = $state(null)
 
-  function reset_count(input) {
+  function reset_count() {
     count = 0
   }
 

@@ -1,65 +1,35 @@
 import { error, json } from "@sveltejs/kit"
-import { CONTIBASE_ACCESS_TOKEN, CONTIBASE_USERS_TABLE_ID } from "$env/static/private"
+import { env } from "$env/dynamic/private"
+import { createContibaseClient, parseNewsletterSubscriber } from "$lib/server/contibase.js"
 
 export async function POST({ request, fetch }) {
-  console.log("start add user")
-  const body = await request.json()
-  const email_address = body?.email_address ?? null
-  const first_name = body?.first_name ?? null
-  const email_address_regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  if (!email_address_regex.test(email_address)) {
-    error(400, "Email address does not meet format requirements")
-  }
-  const filters = {
-    and: [{ field: "email_address", operator: "eq", value: email_address }],
-  }
+  const body = await request.json().catch(() => error(400, "Request body must be valid JSON"))
+  const { email_address, first_name } = parseNewsletterSubscriber(body)
+  const contibase = createContibaseClient(env, fetch)
   const params = new URLSearchParams({
-    filters: JSON.stringify(filters),
+    filters: JSON.stringify({
+      and: [{ field: "email_address", operator: "eq", value: email_address }],
+    }),
     limit: "1",
   })
-  const check_if_email_address_already_used_res = await fetch(
-    `https://www.contibase.com/api/v1/tables/${CONTIBASE_USERS_TABLE_ID}?${params.toString()}`,
-    {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        authorization: `Bearer ${CONTIBASE_ACCESS_TOKEN}`,
-      },
-    }
-  )
-  const check_if_email_address_already_used_res_body = await check_if_email_address_already_used_res.json()
-  if (!check_if_email_address_already_used_res.ok) {
-    return error(
-      400,
-      check_if_email_address_already_used_res_body?.message || "error checking for existing email_address"
-    )
+  const existing_users = await contibase(`?${params.toString()}`)
+  if (!Array.isArray(existing_users.rows)) {
+    error(502, "Newsletter service returned an invalid response")
   }
-  if (
-    Array.isArray(check_if_email_address_already_used_res_body?.rows) &&
-    check_if_email_address_already_used_res_body.rows.length > 0
-  ) {
-    return error(400, "email_address already exists")
+  if (existing_users.rows.length > 0) {
+    error(409, "Email address already exists")
   }
-  const now_epoch_seconds = Math.floor(Date.now() / 1000)
-  const create_user_res = await fetch(`https://www.contibase.com/api/v1/tables/${CONTIBASE_USERS_TABLE_ID}/rows`, {
+
+  const created_user = await contibase("/rows", {
     method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${CONTIBASE_ACCESS_TOKEN}`,
-    },
-    body: JSON.stringify({
+    body: {
       row_data: {
-        first_name: first_name,
-        email_address: email_address,
-        epoch_subscribed: now_epoch_seconds,
+        first_name,
+        email_address,
+        epoch_subscribed: Math.floor(Date.now() / 1000),
         tags: ["all"],
       },
-    }),
+    },
   })
-  const create_user_res_body = await create_user_res.json()
-  if (!create_user_res.ok) {
-    error(400, create_user_res?.message || "Error adding user")
-  }
-  return json(create_user_res_body)
+  return json(created_user, { status: 201 })
 }
