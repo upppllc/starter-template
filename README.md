@@ -50,6 +50,8 @@ If a website does not need a newsletter, remove the `NewsletterSubscribe` import
 
 ## Customize the starter
 
+Read [AGENTS.md](AGENTS.md) and the [shared website principles](docs/website-principles.md) before changing the UI. They document the SvelteKit UI, manager, theme, and server-boundary conventions and are copied into newly generated projects. Existing sites must adopt later instruction changes explicitly.
+
 - Edit the home page in `src/routes/+page.svelte` and `src/lib/components/HomePage/`.
 - Set navigation in `src/lib/components/MainNav/index.svelte`; `/test` is a removable example route.
 - Replace the logo, favicons, social thumbnails, and manifest in `static/`. Update the page titles and metadata for the new website.
