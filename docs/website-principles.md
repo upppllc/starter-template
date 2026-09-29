@@ -53,6 +53,12 @@ src/lib/components/ExamplePage/
 - Keep private access/refresh tokens in the established secure HttpOnly session boundary. Never move provider secrets or service credentials into client-side code, page data, or this documentation.
 - Keep files grouped by feature and execution boundary (`client`, `server`, shared/pure code, components), following the site's existing structure.
 
+## Keep one current implementation
+
+- Do not retain backward-compatibility routes, aliases, URL rewrites, duplicate pages, or obsolete implementations. When replacing an API or feature, update its active callers, tests, and documentation together, then remove the superseded path.
+- Keep only APIs and routes that are currently used or intentionally supported. Preserve authentication and permission boundaries when consolidating them; a simpler URL must not broaden access.
+- Historical verification records may describe old behavior, but they are not current implementation guidance. Apply compatibility only if the user explicitly asks for it for a specific change.
+
 ## Verify and deliver using the project's workflow
 
 - Read the project's `package.json`, README, and `AGENTS.md` for actual commands. Use its existing architecture, server, component, and build checks relevant to the change. Do not invent script names or report tests that were not run.
