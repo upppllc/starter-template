@@ -18,6 +18,7 @@ Only public configuration (configured flag, studio slug and canonical navigation
 | --- | --- |
 | POST `/api/member/session/[action]` | Adapter's named login/logout/signup/activate/confirm-code/password actions |
 | GET/PATCH `/api/member/experience` | `create_member_experience_site_handlers`, strict canonical goal/role payload and owner/studio checks |
+| GET `/api/member/goal-options` | Same factory; authenticated studio choices, revision, and challenge visibility |
 | GET `/api/member/class-feedback` | Same factory; validated cursor only |
 | PUT `/api/member/class-feedback/[booking_id]` | Same factory; validated booking identity, text/rating and matched receipt |
 
@@ -26,6 +27,8 @@ Writes carry `content-type: application/json`, the same-origin Origin and `x-cla
 The account loader projects profile display fields and obtains goals through the same canonical factory. A 401/403 stops rendering private account data; temporary section failures show an unavailable state. Unexpected upstream properties are discarded or rejected before browser serialization.
 
 Role preferences hide presentation only. They do not grant/revoke permissions or narrow management's all-staff view. Feedback is private and Classhelm determines eligible completed attendance.
+
+Goal options are configured by the studio in Classhelm and loaded through the fixed authenticated route. Pass `options_endpoint: "/api/member/goal-options"` to the shared experience manager. Do not hardcode a brand's goal tags or difficulty choices into the host; a text-only studio configuration is supported.
 
 ## Extend the member account
 

@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
-    "classhelm": "0.3.15",
+    "classhelm": "0.3.16",
     "sveltekit-ui": "^1.1.85"
   },
   "engines": {

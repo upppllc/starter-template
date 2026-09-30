@@ -11,7 +11,7 @@ export function create_account_page_manager(config) {
   const identity = () => signed_out ? null : data().member?.id
   const experience = create_member_experience_manager({ identity, customer_id: identity,
     organization_slug: () => data().studio_config.organization_slug, source: () => signed_out ? null : data().experience,
-    onboarding: () => data().experience?.goals.status === "unanswered", endpoint: "/api/member/experience",
+    onboarding: () => data().experience?.goals.status === "unanswered", endpoint: "/api/member/experience", options_endpoint: "/api/member/goal-options",
     action_headers: { "x-classhelm-member-action": "1" }, is_disabled: () => busy, on_saved: invalidateAll,
   })
   const feedback = create_member_class_feedback_manager({ identity, endpoint: "/api/member/class-feedback", action_headers: { "x-classhelm-member-action": "1" }, is_disabled: () => busy })

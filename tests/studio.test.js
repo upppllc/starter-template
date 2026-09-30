@@ -47,7 +47,7 @@ test("empty studio configuration renders safely and never contacts an upstream",
   assert.equal(server.public_config.configured,false)
   assert.equal(server.public_config.studio_href,null)
   assert.deepEqual(await server.load_account(f.event,{redirect}),{member:null,profile:null,experience:null})
-  for (const handler of [server.session_action,server.handlers.experience.GET,server.handlers.experience.PATCH,server.handlers.feedback.GET,server.handlers.feedback.PUT]) {
+  for (const handler of [server.session_action,server.handlers.experience.GET,server.handlers.experience.PATCH,server.handlers.feedback.GET,server.handlers.feedback.PUT,server.handlers.goal_options.GET]) {
     const response = await handler(f.event)
     assert.equal(response.status,503)
     assert.equal(response.headers.get("cache-control"),"private, no-store")
@@ -130,6 +130,22 @@ test("wrong-owner and wrong-studio settings receipts are rejected before reachin
     const response = await f.server.handlers.experience.GET(f.request("/api/member/experience"))
     assert.equal(response.status,502);assert.doesNotMatch(JSON.stringify(await response.json()),/private|Test studio/u)
   }
+})
+test("studio goal choices use only this studio's authenticated route and reject query or tenant substitution",async () => {
+  const f=await signed_in(),options={api_version:1,organization:{id:member_id,slug},options:[{id:"community",label:"Community"}],show_challenge:true,revision:2}
+  f.event.fetch=async(url,init)=>{f.calls.push({url:String(url),init});return Response.json(options)}
+  const response=await f.server.handlers.goal_options.GET(f.request("/api/member/goal-options"))
+  assert.equal(response.status,200);assert.deepEqual(await response.json(),options)
+  assert.equal(f.calls[0].url,`https://www.classhelm.com/api/v1/o/${slug}/member/goal-options`)
+  assert.equal(response.headers.get("cache-control"),"private, no-store")
+  assert.equal((await f.server.handlers.goal_options.GET(f.request(`/api/member/goal-options?organization_slug=${other_slug}`))).status,400)
+  assert.equal(f.calls.length,1)
+  f.event.fetch=async()=>Response.json({...options,organization:{id:member_id,slug:other_slug}})
+  assert.equal((await f.server.handlers.goal_options.GET(f.request("/api/member/goal-options"))).status,502)
+  const anonymous=fixture();anonymous.values.set("classhelm_account_access","global-only")
+  const server=create_studio_server({organization_slug:slug})
+  assert.equal((await server.handlers.goal_options.GET(anonymous.request("/api/member/goal-options"))).status,401)
+  assert.equal(anonymous.calls.length,0)
 })
 test("feedback pagination permits only the validated cursor on the fixed member path",async () => {
   const f = await signed_in();f.event.fetch = async (url,init) => { f.calls.push({url:String(url),init});return Response.json({api_version:1,items:[],next_cursor:null}) }

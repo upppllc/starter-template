@@ -24,6 +24,7 @@ export function create_studio_server({ organization_slug, api_origin = "https://
     schedule_href: configured ? `https://www.classhelm.com/o/${organization_slug}/schedule` : null })
   const handlers = member_site ? create_member_experience_site_handlers(member_site) : {
     experience: { GET: unavailable, PATCH: unavailable }, feedback: { GET: unavailable, PUT: unavailable },
+    goal_options: { GET: unavailable },
   }
   async function restore(event) {
     if (member_site) await member_site.restore(event)
