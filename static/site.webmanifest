@@ -3,19 +3,13 @@
   "short_name": "__APP_NAME__",
   "icons": [
     {
-      "src": "android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
       "purpose": "any"
     }
   ],
-  "theme_color": "#0047b9",
-  "background_color": "#e3edff",
+  "theme_color": "#f5f5f5",
+  "background_color": "#f5f5f5",
   "display": "standalone"
 }

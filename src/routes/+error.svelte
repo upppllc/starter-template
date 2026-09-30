@@ -1,67 +1,8 @@
 <script>
-  import { Button, create_button_manager } from "sveltekit-ui"
-  import { goto } from "$app/navigation"
   import { page } from "$app/state"
-
-  let is_loading = $state(false)
-  function try_again() {
-    if (is_loading) return
-    is_loading = true
-    window.location.reload()
-  }
-
-  let refresh_button_manager = create_button_manager({
-    type: "outlined",
-    support_icon: "refresh",
-    icon_size: 2,
-    icon_sw: 40,
-    ml: 1.5,
-    mr: 1.5,
-    mt: 3,
-    is_loading: () => is_loading,
-    text: "Try Again",
-    on_click: () => try_again(),
-  })
-
-  let goto_home_button_manager = create_button_manager({
-    support_icon: "arrow_tailed",
-    icon_size: 2,
-    icon_sw: 40,
-    ml: 1.5,
-    mr: 1.5,
-    mt: 1.5,
-    text: "Go to Home Page",
-    on_click: () => goto("/"),
-  })
+  import ErrorPage from "$lib/components/ErrorPage/index.svelte"
+  import { create_error_page_manager } from "$lib/components/ErrorPage/index.svelte.js"
+  const manager = create_error_page_manager({ data: () => page })
 </script>
-
-<svelte:head>
-  <title>__APP_NAME__ - Error</title>
-  <meta name="robots" content="noindex, follow" />
-</svelte:head>
-
-<div class="container">
-  <img src="/something-went-wrong.webp" width="250px" height="auto" alt="Something went wrong" />
-  <h2>Something went wrong</h2>
-  {#if page?.error?.message}
-    <p style="text-align: left; font-size: 2rem; color: var(--g7-t);">
-      {page?.error?.message}
-    </p>
-  {/if}
-  <div style="max-width: 30rem; margin: 0 auto;">
-    <Button manager={refresh_button_manager} />
-    <Button manager={goto_home_button_manager} />
-  </div>
-</div>
-
-<style>
-  .container {
-    margin: 1rem auto;
-    margin-top: 3rem;
-    text-align: center;
-    max-width: 60rem;
-  }
-  .container h2 {
-    margin: 3rem auto;
-  }
-</style>
+<svelte:head><title>__APP_NAME__ · Error</title><meta name="robots" content="noindex, nofollow" /></svelte:head>
+<ErrorPage {manager} />

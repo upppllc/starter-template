@@ -1,80 +1,79 @@
-# SvelteKit website starter
+# Classhelm studio starter
 
-A Svelte 5 / SvelteKit starter using [sveltekit-ui](https://www.sveltekit-ui.com), with a Vercel adapter, theme toggle, example components, and an optional Contibase newsletter integration.
+A neutral Svelte 5 / SvelteKit website using SvelteKit UI and the published `classhelm` package. The website owns its brand and public content; Classhelm owns studio identity, services, scheduling, bookings, payments and staff access.
 
-## Start a website
+Requires Node.js 22.12 or newer; Node 24 is recorded in `.nvmrc`.
 
-Use Node.js 24 (the version in `.nvmrc` and the Vercel runtime). The dependencies require at least Node.js 22.12.
+## Create and run
 
-```bash
-npx create-sveltekit-ui-site@latest my-project
-cd my-project
+```sh
+npx create-sveltekit-ui-site@latest my-studio
+cd my-studio
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-Open the local URL printed by Vite. `code .` opens the folder in VS Code if you use it.
+Set `CLASSHELM_ORGANIZATION_SLUG` in `.env` to your studio's exact eight-character Classhelm slug. The empty default makes no upstream requests: marketing renders, studio buttons are disabled, and account endpoints return a controlled 503.
 
-The public `create-sveltekit-ui-site` npm package downloads `upppllc/starter-template` from GitHub and replaces the app-name placeholders. It creates local files; it does not publish or deploy your website. When copying this template manually, update the package name and replace `__APP_NAME__` in the source files and `static/site.webmanifest`.
+The default API origin is `https://www.classhelm.com`. `CLASSHELM_API_ORIGIN` is private server configuration; use another origin only for a trusted Classhelm development backend. An optional `CLASSHELM_STOREFRONT_SHARED_SECRET` must be issued for that studio and stay server-only. Account email setup and sender verification happen in Classhelm.
 
-For an existing SvelteKit project that only needs the component library, run `npm install sveltekit-ui` instead.
+No Supabase service key, npm token or real organization/member identity belongs in this repository.
 
-## Commands
+## Included example
 
-```bash
-npm run dev          # Local development
-npm run check        # Svelte diagnostics (fails on warnings)
-npm run check:watch  # Continuous Svelte diagnostics
-npm test             # Regression tests, with mocked external requests
-npm run build        # Production build and Vercel output
-npm run preview      # Preview the production build locally
-npm run verify       # Check, test, and build
-```
+- Public home page, request-scoped Layout manager, light/dark theme and proper SvelteKit UI action controls.
+- Shared `MemberAccountAccess`: password sign-in, account creation, email-code activation and password reset.
+- Shared account header/profile, optional goals and work-tool visibility, and private completed-class feedback.
+- A fixed studio server adapter with scoped HttpOnly cookies, same-origin mutation checks, canonical response validation, owner checks and bounded upstream reads.
+- Schedule and Studio on Classhelm actions open that studio's existing Classhelm pages. The starter does not fabricate available services or reservation receipts.
+- Public-only analytics: only the approved home page is collected, with queries, fragments and extra properties stripped.
 
-`npm install` generates SvelteKit's local configuration through the `prepare` script. Commit `package-lock.json`; use `npm ci` for reproducible installs. This is a JavaScript starter: `check` checks Svelte diagnostics, while full JavaScript type checking remains opt-in through `checkJs` in `jsconfig.json`.
+The account example is deliberately small. Add subscriptions, credit transfers, bookings, profile editing and the full `MemberAccountDashboard` from the published package when needed; keep authoritative data and mutation policy in Classhelm. [Integration guide](docs/classhelm-integration.md) explains these boundaries.
 
-## Optional newsletter setup
+## Customize
 
-The website can run and build without a `.env` file. To use the newsletter, copy `.env.example` to `.env` and set:
+Edit `src/lib/site/content.js` for public studio copy. Replace the generic favicon/wordmark and add studio-owned imagery or licensed fonts locally. Brand choices must not affect Classhelm or another studio.
 
-```dotenv
-CONTIBASE_ACCESS_TOKEN=
-CONTIBASE_USERS_TABLE_ID=
-```
+The privacy page is an explicit placeholder. Replace it with the studio's actual notice before enabling public account creation. All pages and `robots.txt` default to no indexing; review privacy, public metadata, canonical domain and crawler rules before launching. Never enable analytics on sign-in, account or member API routes.
 
-Keep the token private. Configure the same variables in your deployment environment. The sample uses a Contibase table with `first_name`, `email_address`, `epoch_subscribed`, `tags`, and `epoch_email_address_confirmed` fields. Without configuration, newsletter and confirmation requests return a readable unavailable message.
+The navigation and page components have paired managers. Components receive live data getters; server session tokens never enter page data, client managers, localStorage or browser responses.
 
-The confirmation route is an example that uses a row ID in the link. Before using email confirmation for authentication or other sensitive actions, replace it with an expiring, single-use token flow. Sending welcome/confirmation emails must be configured separately.
+## Verify
 
-If a website does not need a newsletter, remove the `NewsletterSubscribe` import and section in `src/routes/+layout.svelte`, along with its routes and manager.
-
-## Customize the starter
-
-Read [AGENTS.md](AGENTS.md) and the [shared website principles](docs/website-principles.md) before changing the UI. They document the SvelteKit UI, manager, theme, and server-boundary conventions and are copied into newly generated projects. Existing sites must adopt later instruction changes explicitly.
-
-- Edit the home page in `src/routes/+page.svelte` and `src/lib/components/HomePage/`.
-- Set navigation in `src/lib/components/MainNav/index.svelte`; `/test` is a removable example route.
-- Replace the logo, favicons, social thumbnails, and manifest in `static/`. Update the page titles and metadata for the new website.
-- Review the example Contibase attribution and social link in `src/routes/+layout.svelte`.
-- Add your own description and social preview metadata in the page's `<svelte:head>` block.
-
-The layout creates its own UI manager and shares it with descendants using Svelte context. In a child component or manager created during component initialization, call `get_global_manager()` from `$lib/client/index.svelte.js` once, then use the returned manager in event callbacks. This keeps state separate between server requests.
-
-For favicon assets, [SVGOMG](https://jakearchibald.github.io/svgomg/) can optimize SVGs and [RealFaviconGenerator](https://realfavicongenerator.net/) can generate the icon set. Replace `favicon.svg` and `favicon-inactive.svg` to customize active and inactive browser tabs.
-
-## Update dependencies
-
-```bash
-npx npm-check-updates -u
-npm install
-npm audit
+```sh
+npm ci
 npm run verify
+npm audit
 ```
 
-Review major upgrades before committing. The scoped `cookie` override in `package.json` keeps SvelteKit's transitive dependency on a patched release; remove it when SvelteKit's own dependency range includes that fix.
+`verify` runs Svelte checks (warnings fail), Node tests and the production build. Tests exercise the installed shared server adapter and host account loader with controlled fictitious identities, including cookie flags, CSRF/action headers, wrong studio/owner receipts, private cache headers and feedback pagination. No real account or database writes are needed.
 
-## Template maintenance and releases
+Also verify the generated website in a browser at wide/narrow widths, both themes, sign-in/account navigation and unavailable/error states. A configured integration should be tested against an authorized development studio. Do not infer successful booking or payment from a selected time or an opened checkout link.
 
-Changes to this template reach new projects after they are pushed to the `upppllc/starter-template` GitHub repository. Changes to the separate `create-sveltekit-ui-site` CLI require a new npm release; see that project's README. This website starter is marked `private` to prevent accidental npm publication.
+Dependency updates start with `ncu -u`, then `npm install`, audit and verification. The current SvelteKit/checker peer ranges support TypeScript 6, so TypeScript remains on the latest supported 6.0.3 rather than forcing an unsupported major. The scoped cookie and brace-expansion overrides address compatible upstream dependency fixes.
 
-Existing websites are independent copies. Updating the template or CLI does not automatically change them.
+## Project structure
+
+```text
+src/lib/site/content.js              Studio-owned public content
+src/lib/client/index.svelte.js       Request-scoped layout/navigation managers
+src/lib/components/*                Thin views with paired managers
+src/lib/server/member-site.js        Private environment configuration
+src/lib/server/studio.js             Shared adapter composition and account reads
+src/routes/api/member/*              Fixed thin session/settings/feedback handlers
+docs/website-principles.md           Shared agent conventions
+docs/classhelm-integration.md        Host boundaries and extension instructions
+```
+
+Read [AGENTS.md](AGENTS.md) and [website principles](docs/website-principles.md) before implementation.
+
+## Releases
+
+The template and generator are separate repositories and releases:
+
+1. Verify, commit and push this template to `main` in `upppllc/starter-template`. Future generator runs download that branch.
+2. Verify and pack `create-sveltekit-ui-site`, commit its changes, then prepare a reviewed npm version and publish with the package owner's authentication.
+3. Generate a fresh project with the released command; install, verify and browser-check it.
+
+This template package is private and is not published to npm. Publishing the generator does not publish or deploy a studio. For a new website, create its own Git repository, Vercel project, domains and private environment configuration. Do not carry over another studio's project link or credentials.

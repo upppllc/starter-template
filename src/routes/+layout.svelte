@@ -1,114 +1,27 @@
 <script>
   import "sveltekit-ui/style.css"
+  import { Layout, Checkbox, Button } from "sveltekit-ui"
   import Logo from "$lib/components/Logo/index.svelte"
   import MainNav from "$lib/components/MainNav/index.svelte"
-  import NewsletterSubscribe from "$lib/components/Newsletter/Section/index.svelte"
-  import { Layout, Checkbox, XFollow } from "sveltekit-ui"
   import { create_global_manager, set_global_manager } from "$lib/client/index.svelte.js"
-  import { page } from "$app/state"
-
-  let { children } = $props()
-  const global_manager = set_global_manager(create_global_manager())
+  let { children, data } = $props()
+  const manager = set_global_manager(create_global_manager({ data: () => data }))
 </script>
-
-<Layout manager={global_manager?.layout_manager}>
-  {#snippet nav_bar_logo()}
-    <Logo />
-  {/snippet}
-  {#snippet nav_bar_extra()}
-    <div style="display: flex; align-items: center;">
-      <!-- <TextInput placeholder="Search" /> -->
-      <div style="display: flex; gap: 1rem;">
-        <!-- <Button manager={global_manager?.chat_assistant_manager?.popover_button_manager} /> -->
-        <!-- <AuthTrigger manager={global_manager?.auth_manager} /> -->
-      </div>
-      <!-- {#if !global_manager?.auth_manager?.account?.id} -->
-      <Checkbox manager={global_manager?.layout_manager?.dark_theme_manager} />
-      <!-- {/if} -->
-    </div>
-  {/snippet}
-  {#snippet sub_bar()}
-    <!-- tbd -->
-  {/snippet}
-  {#snippet full_nav()}
-    <div style="margin: 1rem;">
-      <MainNav />
-    </div>
-  {/snippet}
+<Layout manager={manager.layout_manager}>
+  {#snippet nav_bar_logo()}<Logo name={data.studio.name} />{/snippet}
+  {#snippet nav_bar_extra()}<div class="nav-actions"><Button manager={manager.account_button} /><Checkbox manager={manager.layout_manager.dark_theme_manager} /></div>{/snippet}
+  {#snippet full_nav()}<MainNav manager={manager.nav_manager} />{/snippet}
   {#snippet content()}
-    {#if children}
-      {@render children()}
-    {/if}
-    {#if !page?.route?.id?.startsWith("/confirm_user_email_address")}
-      <div
-        style="display: flex; justify-content: center; padding: 1rem; margin: 2rem auto 2rem auto; max-width: 60rem;"
-      >
-        <NewsletterSubscribe manager={global_manager?.newsletter_subscribe_manager} />
-      </div>
-    {/if}
-    <div style="display: flex; justify-content: center; padding: 1rem; margin-bottom: 2rem; margin-top: 2rem;">
-      <XFollow x_handle="contibase" />
-    </div>
-    <div style="display: flex; justify-content: start; padding: 1rem; margin-top: 2rem;">
-      <a
-        href="https://www.contibase.com?ref=skst"
-        target="_blank"
-        rel="noopener noreferrer"
-        style="display: flex; align-items: center; justify-content: center; padding: .5rem 2rem; width: fit-content; background-color: var(--g0-t); border-radius: 10px; font-family: Quicksand; text-decoration: none;"
-      >
-        <img
-          height="12px"
-          width="auto"
-          style="max-height: 12px; max-width: 40px; width: auto; margin-right: 10px;"
-          src="https://www.contibase.com/favicon.svg"
-          alt="icon"
-        />
-        <div style="display: flex; flex-direction: column; flex: 0;">
-          <span style="font-size: 1rem; line-height: 1; color: var(--g16-t)">Powered by </span><span
-            style="line-height: 1; color: oklch(var(--l12-t) var(--c12) var(--h10));">Contibase</span
-          >
-        </div>
-      </a>
-    </div>
-  {/snippet}
-  {#snippet additional()}
-    <!-- <AuthPopover manager={global_manager?.auth_manager} /> -->
-    <!-- <ChatAssistant manager={global_manager?.chat_assistant_manager} /> -->
+    {@render children()}
+    <footer class="page-width"><Logo name={data.studio.name} /><Button manager={manager.privacy_button} /></footer>
   {/snippet}
 </Layout>
-
 <style>
-  @font-face {
-    font-family: "Proxima Vara";
-    src:
-      local(""),
-      url("/fonts/ProximaVara.woff2") format("woff2 supports variations"),
-      url("/fonts/ProximaVara.woff2") format("woff2-variations");
-    font-weight: 100 900;
-    font-stretch: 50% 100%;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Roboto Serif";
-    src:
-      url("/fonts/RobotoSerif-VariableFont.woff2") format("woff2 supports variations"),
-      url("/fonts/RobotoSerif-VariableFont.woff2") format("woff2-variations");
-    font-weight: 100 1000;
-    font-display: swap;
-  }
-  @font-face {
-    font-family: "Quicksand";
-    src:
-      url("/fonts/Quicksand-VariableFont.woff2") format("woff2 supports variations"),
-      url("/fonts/Quicksand-VariableFont.woff2") format("woff2-variations");
-    font-weight: 100 1000;
-    font-display: swap;
-  }
-  :global(body) {
-    background-color: var(--bg);
-  }
-  :root {
-    --primary-c: var(--c10);
-    --primary-h: var(--h18);
-  }
+  :global(:root) { --primary-c: var(--c8); --primary-h: var(--h12); }
+  :global(body) { background: var(--bg); font-family: system-ui, sans-serif; }
+  :global(.page-width) { width: min(100% - 3.2rem,112rem); margin-inline: auto; }
+  :global(.page-section) { padding-block: clamp(3.2rem,6vw,7.2rem); }
+  :global(h1), :global(h2), :global(p) { overflow-wrap: anywhere; }
+  .nav-actions { display: flex; align-items: center; gap: 1rem; }
+  footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 2rem; padding-block: 3.2rem; border-top: 1px solid var(--shadow2-t); }
 </style>

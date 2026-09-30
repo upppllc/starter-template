@@ -5,7 +5,10 @@ Read [shared website principles](docs/website-principles.md) before editing this
 - Use SvelteKit UI as the primary UI system. Application actions use its `Button`; use its managers and proper icons, never Unicode arrow icons.
 - Keep views and routes thin. State, requests, validation, and child controls belong in paired `index.svelte.js` managers; pass live data getters and keep shared state request-scoped.
 - Use the existing Layout/theme manager and adaptive tokens; preserve the site's brand and the library's native control behavior.
-- Read [README.md](README.md) for setup, verification, optional integrations, and the separate template/CLI release processes. Do not interpret sample newsletter content or placeholders as a product requirement.
+- Read [README.md](README.md) and [Classhelm integration](docs/classhelm-integration.md) for setup, verification, server boundaries, and the separate template/CLI release processes. Sample studio copy and placeholders are not product requirements.
+- Import shared Classhelm components/managers from the published `classhelm` package. Keep the exact dependency pin and upgrade it deliberately with host verification; never copy its source into this website.
+- Keep organization configuration and optional storefront secrets in private environment variables. No browser bearer tokens, service-role keys, caller-selected upstream URLs, or fallback to another account boundary.
+- Empty studio configuration is intentional: the site must render without contacting an upstream. Tests may use controlled fictitious identities; do not bake a real organization, member, price, or service into the starter.
 - Spell the product **Classhelm** in prose; preserve established machine identifiers.
 
 When adding project-specific instructions, keep the shared reference and record intentional exceptions locally.
