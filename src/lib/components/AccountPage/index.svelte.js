@@ -1,4 +1,4 @@
-import { goto, invalidateAll } from "$app/navigation"
+import { goto, refreshAll } from "$app/navigation"
 import { create_button_manager } from "sveltekit-ui"
 import { create_member_account_header_manager } from "classhelm/member-account-header-manager"
 import { create_member_profile_summary_manager } from "classhelm/member-profile-summary-manager"
@@ -12,7 +12,7 @@ export function create_account_page_manager(config) {
   const experience = create_member_experience_manager({ identity, customer_id: identity,
     organization_slug: () => data().studio_config.organization_slug, source: () => signed_out ? null : data().experience,
     onboarding: () => data().experience?.goals.status === "unanswered", endpoint: "/api/member/experience", options_endpoint: "/api/member/goal-options",
-    action_headers: { "x-classhelm-member-action": "1" }, is_disabled: () => busy, on_saved: invalidateAll,
+    action_headers: { "x-classhelm-member-action": "1" }, is_disabled: () => busy, on_saved: refreshAll,
   })
   const feedback = create_member_class_feedback_manager({ identity, endpoint: "/api/member/class-feedback", action_headers: { "x-classhelm-member-action": "1" }, is_disabled: () => busy })
   async function sign_out() {
@@ -24,7 +24,7 @@ export function create_account_page_manager(config) {
       const result = await response.json().catch(() => null)
       if (!response.ok && !result?.local_session_cleared) throw new Error("Sign-out unavailable")
       signed_out = true
-      await goto("/", { invalidateAll: true, replaceState: true })
+      await goto("/", { refreshAll: true, replace: true })
     } catch { message = "You could not be signed out. Please try again." }
     finally { busy = false }
   }
