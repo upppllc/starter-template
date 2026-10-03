@@ -2,7 +2,7 @@
 
 A neutral Svelte 5 / SvelteKit 3 website using SvelteKit UI and the published `classhelm` package. The website owns its brand and public content; Classhelm owns studio identity, services, scheduling, bookings, payments and staff access.
 
-Requires Node.js 22.17 or newer; Node 24 is recorded in `.nvmrc`.
+Requires Node.js 24; the app's engine and `.nvmrc` use Node 24, matching its Vercel runtime.
 
 ## Create and run
 
@@ -51,7 +51,7 @@ npm audit
 
 Also verify the generated website in a browser at wide/narrow widths, both themes, sign-in/account navigation and unavailable/error states. A configured integration should be tested against an authorized development studio. Do not infer successful booking or payment from a selected time or an opened checkout link.
 
-Dependency updates start with `ncu -u`, then `npm install`, audit and verification. The current SvelteKit/checker peer ranges support TypeScript 6, so TypeScript remains on the latest supported 6.0.3 rather than forcing an unsupported major. The brace-expansion override addresses a compatible upstream dependency fix. Analytics is pinned to the reviewed generic 1.3.2 API while the latest framework adapter still excludes SvelteKit 3; the update configuration preserves that pin.
+Dependency updates start with `npx npm-check-updates -u`, then ordinary `npm install`, audit and verification. The update configuration selects the latest versions compatible with installed/upgraded peer requirements and the Node engine. TypeScript 7 is published, but the current SvelteKit/checker peer ranges support TypeScript 6, so the compatible version remains 6.0.3. Do not bypass peer requirements with `--force` or `--legacy-peer-deps`. The brace-expansion override addresses a compatible upstream dependency fix. Analytics is pinned to the reviewed generic 1.3.2 API while the latest framework adapter still excludes SvelteKit 3; the update configuration preserves that pin.
 
 ## Project structure
 
@@ -79,4 +79,4 @@ The template and generator are separate repositories and releases:
 
 This template package is private and is not published to npm. Publishing the generator does not publish or deploy a studio. For a new website, create its own Git repository, Vercel project, domains and private environment configuration. Do not carry over another studio's project link or credentials.
 
-SvelteKit 3 options live in `vite.config.js`; `#lib` imports are explicit package aliases. Analytics are registered through the public-only navigation lifecycle and never queue private paths or URL parameters. The reviewed SvelteKit UI version is 1.1.86.
+SvelteKit 3 options live in `vite.config.js`; `#lib` imports are explicit package aliases. Analytics are registered through the public-only navigation lifecycle and never queue private paths or URL parameters. The reviewed SvelteKit UI version is 1.1.87.
