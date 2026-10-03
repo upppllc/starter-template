@@ -1,5 +1,5 @@
-import { studio_server } from "$lib/server/member-site.js"
-import { transform_theme, secure_site_response } from "$lib/server/site-response.js"
+import { studio_server } from "#lib/server/member-site.js"
+import { transform_theme, secure_site_response } from "#lib/server/site-response.js"
 
 export async function handle({ event, resolve }) {
   await studio_server.restore(event)

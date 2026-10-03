@@ -1,8 +1,8 @@
 # Classhelm studio starter
 
-A neutral Svelte 5 / SvelteKit website using SvelteKit UI and the published `classhelm` package. The website owns its brand and public content; Classhelm owns studio identity, services, scheduling, bookings, payments and staff access.
+A neutral Svelte 5 / SvelteKit 3 website using SvelteKit UI and the published `classhelm` package. The website owns its brand and public content; Classhelm owns studio identity, services, scheduling, bookings, payments and staff access.
 
-Requires Node.js 22.12 or newer; Node 24 is recorded in `.nvmrc`.
+Requires Node.js 22.17 or newer; Node 24 is recorded in `.nvmrc`.
 
 ## Create and run
 
@@ -51,7 +51,7 @@ npm audit
 
 Also verify the generated website in a browser at wide/narrow widths, both themes, sign-in/account navigation and unavailable/error states. A configured integration should be tested against an authorized development studio. Do not infer successful booking or payment from a selected time or an opened checkout link.
 
-Dependency updates start with `ncu -u`, then `npm install`, audit and verification. The current SvelteKit/checker peer ranges support TypeScript 6, so TypeScript remains on the latest supported 6.0.3 rather than forcing an unsupported major. The scoped cookie and brace-expansion overrides address compatible upstream dependency fixes.
+Dependency updates start with `ncu -u`, then `npm install`, audit and verification. The current SvelteKit/checker peer ranges support TypeScript 6, so TypeScript remains on the latest supported 6.0.3 rather than forcing an unsupported major. The brace-expansion override addresses a compatible upstream dependency fix. Analytics is pinned to the reviewed generic 1.3.2 API while the latest framework adapter still excludes SvelteKit 3; the update configuration preserves that pin.
 
 ## Project structure
 
@@ -59,7 +59,8 @@ Dependency updates start with `ncu -u`, then `npm install`, audit and verificati
 src/lib/site/content.js              Studio-owned public content
 src/lib/client/index.svelte.js       Request-scoped layout/navigation managers
 src/lib/components/*                Thin views with paired managers
-src/lib/server/member-site.js        Private environment configuration
+src/env.js                          Explicit optional private environment declarations
+src/lib/server/member-site.js        Private studio adapter configuration
 src/lib/server/studio.js             Shared adapter composition and account reads
 src/routes/api/member/*              Fixed thin session/settings/feedback handlers
 docs/website-principles.md           Shared agent conventions
@@ -77,3 +78,5 @@ The template and generator are separate repositories and releases:
 3. Generate a fresh project with the released command; install, verify and browser-check it.
 
 This template package is private and is not published to npm. Publishing the generator does not publish or deploy a studio. For a new website, create its own Git repository, Vercel project, domains and private environment configuration. Do not carry over another studio's project link or credentials.
+
+SvelteKit 3 options live in `vite.config.js`; `#lib` imports are explicit package aliases. Analytics are registered through the public-only navigation lifecycle and never queue private paths or URL parameters. The reviewed SvelteKit UI version is 1.1.86.

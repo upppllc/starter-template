@@ -1,10 +1,12 @@
 <script>
   import "sveltekit-ui/style.css"
   import { Layout, Checkbox, Button } from "sveltekit-ui"
-  import Logo from "$lib/components/Logo/index.svelte"
-  import MainNav from "$lib/components/MainNav/index.svelte"
-  import { create_global_manager, set_global_manager } from "$lib/client/index.svelte.js"
+  import Logo from "#lib/components/Logo/index.svelte"
+  import MainNav from "#lib/components/MainNav/index.svelte"
+  import { create_global_manager, set_global_manager } from "#lib/client/index.svelte.js"
+  import { register_site_analytics } from "#lib/site/analytics-lifecycle.svelte.js"
   let { children, data } = $props()
+  register_site_analytics()
   const manager = set_global_manager(create_global_manager({ data: () => data }))
 </script>
 <Layout manager={manager.layout_manager}>

@@ -1,5 +1,5 @@
 {
-  "extends": "./.svelte-kit/tsconfig.json",
+  "extends": "$app/tsconfig",
   "compilerOptions": {
     "allowJs": true,
     "checkJs": false,
@@ -10,5 +10,15 @@
     "sourceMap": true,
     "strict": true,
     "moduleResolution": "bundler"
-  }
+  },
+  "include": [
+    "src",
+    "tests",
+    "*"
+  ],
+  "exclude": [
+    "src/service-worker",
+    "node_modules",
+    ".vercel"
+  ]
 }

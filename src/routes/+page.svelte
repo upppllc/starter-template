@@ -1,6 +1,6 @@
 <script>
-  import { create_home_page_manager } from "$lib/components/HomePage/index.svelte.js"
-  import HomePage from "$lib/components/HomePage/index.svelte"
+  import { create_home_page_manager } from "#lib/components/HomePage/index.svelte.js"
+  import HomePage from "#lib/components/HomePage/index.svelte"
   let { data } = $props()
   const home_page_manager = create_home_page_manager({ data: () => data })
 </script>
