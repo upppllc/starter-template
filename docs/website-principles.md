@@ -48,8 +48,8 @@ src/lib/components/ExamplePage/
 ## Keep public presentation separate from authority
 
 - Keep credentials, authorization, provider integrations, and secure mutations in server code. Browser managers do not establish identity, tenant access, prices, booking entitlement, or payment completion.
-- For a Classhelm-connected studio site, Classhelm owns member identity, scheduling, bookings, commerce, staff operations, and transactional messages. Use its reviewed public/member APIs and shared `classhelm` package where applicable; the studio website owns marketing, branding, and its same-origin session adapter.
-- Reuse the existing shared component or API boundary instead of copying operational business logic into each studio site. Preserve the independent Classhelm-account and studio-member credential boundaries.
+- For a Vuoma-connected studio site, Vuoma owns member identity, scheduling, bookings, commerce, staff operations, and transactional messages. Use its reviewed public/member APIs and shared `@vuoma/web` package where applicable; the studio website owns marketing, branding, and its same-origin session adapter.
+- Reuse the existing shared component or API boundary instead of copying operational business logic into each studio site. Preserve the independent Vuoma-account and studio-member credential boundaries.
 - Keep private access/refresh tokens in the established secure HttpOnly session boundary. Never move provider secrets or service credentials into client-side code, page data, or this documentation.
 - Keep files grouped by feature and execution boundary (`client`, `server`, shared/pure code, components), following the site's existing structure.
 
@@ -63,11 +63,11 @@ src/lib/components/ExamplePage/
 
 - Read the project's `package.json`, README, and `AGENTS.md` for actual commands. Use its existing architecture, server, component, and build checks relevant to the change. Do not invent script names or report tests that were not run.
 - Browser-check behavior that depends on navigation, live managers, controls, theme, or layout. A successful build alone does not establish those behaviors.
-- Follow the site's documented deployment workflow. Deployment rules differ: Ebb & Float requires its source-build deployment script, while Classhelm requires canonical production integration and verification. Do not replace either with a blanket deployment command from another project.
+- Follow the site's documented deployment workflow. Deployment rules differ: Ebb & Float requires its source-build deployment script, while Vuoma requires canonical production integration and verification. Do not replace either with a blanket deployment command from another project.
 - Library/template releases and website deployments are separate. Pin/update the site's reviewed dependency and verify that site when adopting a shared package change.
 
 ## Where these conventions came from
 
-Consolidated on 2026-09-28 from the SvelteKit UI README, Button/Icon APIs and theme stylesheet; this starter's README and request-scoped context manager; Classhelm's `AGENTS.md`, frontend architecture and manager tests; REWILD's component/library/architecture guides; Ebb & Float's `AGENTS.md`, component guide and architecture check; and the user's shared Button/icon terminology instructions.
+Consolidated on 2026-09-28 from the SvelteKit UI README, Button/Icon APIs and theme stylesheet; this starter's README and request-scoped context manager; Vuoma's `AGENTS.md`, frontend architecture and manager tests; REWILD's component/library/architecture guides; Ebb & Float's `AGENTS.md`, component guide and architecture check; and the user's shared Button/icon terminology instructions.
 
-Project-only details remain local: Classhelm's minimum text sizes and backend/release requirements, Ebb's CSS precision and source-deployment safeguards, REWILD's storefront boundary, and each library/package's release process. Historical examples may predate these consolidated rules; do not treat old markup as a reason to bypass the current instructions.
+Project-only details remain local: Vuoma's minimum text sizes and backend/release requirements, Ebb's CSS precision and source-deployment safeguards, REWILD's storefront boundary, and each library/package's release process. Historical examples may predate these consolidated rules; do not treat old markup as a reason to bypass the current instructions.
