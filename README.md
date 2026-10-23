@@ -2,7 +2,7 @@
 
 A neutral Svelte 5 / SvelteKit 3 website using SvelteKit UI and the published `classhelm` package. The website owns its brand and public content; Classhelm owns studio identity, services, scheduling, bookings, payments and staff access.
 
-Requires Node.js 24; the app's engine and `.nvmrc` use Node 24, matching its Vercel runtime.
+Requires Node.js 24.22.1 or later within Node 24; `.nvmrc` follows the latest Node 24 patch, matching its Vercel runtime.
 
 ## Create and run
 
