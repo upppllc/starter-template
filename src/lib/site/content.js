@@ -1,7 +1,6 @@
-// Studio-owned public copy. Identity and booking data come from Classhelm.
-export const studio = Object.freeze({
+export const site = Object.freeze({
   name: "__APP_NAME__",
-  description: "A little time for your wellbeing.",
-  headline: "Make time for yourself.",
-  introduction: "Discover a practice that fits your day. Find your next visit and stay connected with your studio.",
+  description: "A fresh SvelteKit website built with SvelteKit UI.",
+  headline: "Make room for your next idea.",
+  introduction: "Start with a clear layout, shared controls and a theme that feels at home in light and dark.",
 })

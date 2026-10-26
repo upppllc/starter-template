@@ -48,7 +48,7 @@ src/lib/components/ExamplePage/
 ## Keep public presentation separate from authority
 
 - Keep credentials, authorization, provider integrations, and secure mutations in server code. Browser managers do not establish identity, tenant access, prices, booking entitlement, or payment completion.
-- For a Vuoma-connected studio site, Vuoma owns member identity, scheduling, bookings, commerce, staff operations, and transactional messages. Use its reviewed public/member APIs and shared `@vuoma/web` package where applicable; the studio website owns marketing, branding, and its same-origin session adapter.
+- Backend integration belongs in the corresponding provider starter. This generic starter has no backend or authentication configured; add a reviewed server boundary when selecting one.
 - Reuse the existing shared component or API boundary instead of copying operational business logic into each studio site. Preserve the independent Vuoma-account and studio-member credential boundaries.
 - Keep private access/refresh tokens in the established secure HttpOnly session boundary. Never move provider secrets or service credentials into client-side code, page data, or this documentation.
 - Keep files grouped by feature and execution boundary (`client`, `server`, shared/pure code, components), following the site's existing structure.

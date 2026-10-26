@@ -1,14 +1,12 @@
-# Website instructions
+# SvelteKit UI starter
 
-Read [shared website principles](docs/website-principles.md) before editing this project. This document and `AGENTS.md` are part of the starter so generated sites receive the same conventions.
+Read docs/website-principles.md and README.md before editing.
 
-- Use SvelteKit UI as the primary UI system. Application actions use its `Button`; use its managers and proper icons, never Unicode arrow icons.
-- Keep views and routes thin. State, requests, validation, and child controls belong in paired `index.svelte.js` managers; pass live data getters and keep shared state request-scoped.
-- Use the existing Layout/theme manager and adaptive tokens; preserve the site's brand and the library's native control behavior.
-- Read [README.md](README.md) and [Classhelm integration](docs/classhelm-integration.md) for setup, verification, server boundaries, and the separate template/CLI release processes. Sample studio copy and placeholders are not product requirements.
-- Import shared Classhelm components/managers from the published `classhelm` package. Keep the exact dependency pin and upgrade it deliberately with host verification; never copy its source into this website.
-- Keep organization configuration and optional storefront secrets in private environment variables. No browser bearer tokens, service-role keys, caller-selected upstream URLs, or fallback to another account boundary.
-- Empty studio configuration is intentional: the site must render without contacting an upstream. Tests may use controlled fictitious identities; do not bake a real organization, member, price, or service into the starter.
-- Spell the product **Classhelm** in prose; preserve established machine identifiers.
-
-When adding project-specific instructions, keep the shared reference and record intentional exceptions locally.
+- Use SvelteKit UI components and paired reactive managers; keep routes and views thin.
+- Use Button for actions and navigation, with proper library icons. Use support_icon: "arrow_tailed" and icon_deg for arrows, never text arrow glyphs.
+- Create layout and shared state per request/component through Svelte context. Preserve live data getters, cleanup and native keyboard/accessibility behavior.
+- Keep brand choices in local copy/assets and adaptive theme tokens.
+- This is a provider-free UI starter. Add backend integrations in their dedicated starters; do not add another platform's account/runtime source here.
+- Do not copy credentials, real account identities, project links or dependency/build output into generated sites.
+- Verify with npm run verify and check wide/narrow layouts and both themes. Template, CLI publication and site deployment are separate releases.
+- Spell Classhelm correctly when referring to historical integrations; preserve existing machine identifiers.

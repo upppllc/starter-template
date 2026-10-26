@@ -4,9 +4,5 @@
   let { data } = $props()
   const home_page_manager = create_home_page_manager({ data: () => data })
 </script>
-<svelte:head>
-  <title>{data.studio.name}</title>
-  <meta name="description" content={data.studio.description} />
-  <meta name="robots" content="noindex, nofollow" />
-</svelte:head>
+<svelte:head><title>{data.site.name}</title><meta name="description" content={data.site.description} /><meta name="robots" content="noindex, nofollow" /></svelte:head>
 <HomePage manager={home_page_manager} />

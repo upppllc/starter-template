@@ -1,7 +1,12 @@
 import { create_button_manager } from "sveltekit-ui"
 export function create_home_page_manager(config) {
-  return { get studio() { return config.data().studio },
-    book_button: create_button_manager({ text: "View schedule", is_compressed: true, support_icon: "arrow_tailed", icon_deg: -45, href: () => config.data().studio_config.schedule_href, is_disabled: () => !config.data().studio_config.configured }),
-    account_button: create_button_manager({ text: "Get started", type: "outlined", is_compressed: true, support_icon: "arrow_tailed", href: "/sign-in?mode=signup", is_disabled: () => !config.data().studio_config.configured }),
+  return { get site() { return config.data().site },
+    features: [
+      { title: "One UI system", text: "Buttons, inputs, layout and theme controls share the same components and managers." },
+      { title: "Your own identity", text: "Replace the public copy, icon and color tokens without copying a different project's brand." },
+      { title: "Choose your backend", text: "This starter has no account service, provider connection or credentials configured." },
+    ],
+    start_button: create_button_manager({ text: "Explore the starter", support_icon: "arrow_tailed", href: "#features" }),
+    docs_button: create_button_manager({ text: "SvelteKit UI", type: "outlined", support_icon: "arrow_tailed", icon_deg: -45, href: "https://github.com/upppllc/sveltekit-ui" }),
   }
 }
