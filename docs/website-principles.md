@@ -71,3 +71,10 @@ src/lib/components/ExamplePage/
 Consolidated on 2026-09-28 from the SvelteKit UI README, Button/Icon APIs and theme stylesheet; this starter's README and request-scoped context manager; Vuoma's `AGENTS.md`, frontend architecture and manager tests; REWILD's component/library/architecture guides; Ebb & Float's `AGENTS.md`, component guide and architecture check; and the user's shared Button/icon terminology instructions.
 
 Project-only details remain local: Vuoma's minimum text sizes and backend/release requirements, Ebb's CSS precision and source-deployment safeguards, REWILD's storefront boundary, and each library/package's release process. Historical examples may predate these consolidated rules; do not treat old markup as a reason to bypass the current instructions.
+
+## Dependency ownership
+
+- Prefer native browser and Node APIs for small, bounded needs; keep only the functionality this host uses.
+- Retain maintained packages for complex parsing, sanitization, cryptography and platform protocols unless an equivalent replacement is verified against real edge cases.
+- Put shared first-party behavior in the existing SvelteKit UI, Vuoma or provider package that owns it; hosts retain branding and explicit account/tenant configuration.
+- Adopt exact reviewed first-party releases with matching lock integrity, then verify the consuming host. Publishing a package does not update existing websites.
