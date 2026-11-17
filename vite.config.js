@@ -5,7 +5,7 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [sveltekit({
     adapter: adapter({
-      runtime: "nodejs24.x",
+      runtime: "nodejs26.x",
       trailingSlash: false,
       cleanUrls: true,
       maxDuration: 300,

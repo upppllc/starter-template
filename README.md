@@ -2,7 +2,7 @@
 
 A provider-free Svelte 5 / SvelteKit 3 website using the published sveltekit-ui package. It includes a request-scoped layout, light/dark theme, navigation, responsive public sections and an error/privacy page. It includes no account service, analytics, database or provider credentials.
 
-Requires Node 24.22.1 or later within Node 24. TypeScript stays on version 6 because the installed Svelte tooling supports that peer range.
+Requires Node 26.13.1 locally (`nvm use`); the package engine and Vercel adapter select Node 26. Vercel manages patch updates within the Node 26 major. TypeScript stays on version 6 because the installed Svelte tooling supports that peer range. The peer-aware `.ncurc.json` policy keeps ordinary dependency updates within supported framework and Node ranges.
 
 ```sh
 npm ci
